@@ -31,15 +31,18 @@ verbose = 0
 abs_err = 1e-20
 rel_err = 1e-6
 s = solver(c, "osu2009.chm", p, abs_err, rel_err, initial_abundances, density, verbose)
-times = np.logspace(2, 8, 500)
+times = np.logspace(2, 8, 128)
 abundances = []
 for time in times:
     try:
         abundances.append(s.solve(time)['CO'])
     except ArithmeticError as e:
         raise "Something went wrong: %s" % e
-print abundances
+
 plt.plot(times, abundances)
+plt.title('Wrapper-Generated Figure')
+plt.ylabel('Abundance')
+plt.xlabel('Time')
 plt.xscale('log')
 plt.yscale('log')
-plt.show()
+plt.savefig('wrapper_figure.png')
