@@ -35,7 +35,7 @@ times = np.logspace(2, 8, 128)
 abundances = []
 for time in times:
     try:
-        abundances.append(s.solve(time)['CO'])
+        abundances.append(s.solve(time * 3600 * 24 * 365)['CO'])
     except ArithmeticError as e:
         raise "Something went wrong: %s" % e
 
